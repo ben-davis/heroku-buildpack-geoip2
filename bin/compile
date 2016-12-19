@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# grab environment args
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_FILE=$3
+
+BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
+source $BIN_DIR/utils
+
+GEOLITECOUNTRY_URL="http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz"
+GEOLITECITY_URL="http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
+
+GEOIP_PATH = $BUILD_DIR/geoip
+if [ ! -f $GEOIP_PATH]; then
+    mkdir $GEOIP_PATH
+fi
+
+GEOLITECOUNTRY_PATH="${GEOIP_PATH}/GeoLite2-Country.mmdb"
+GEOLITECITY_PATH="${GEOIP_PATH}/GeoLite2-City.mmdb"
+
+if [ ! -f $GEOLITECOUNTRY_PATH ]; then
+    curl -s -L -o ${GEOLITECOUNTRY_PATH}.gz $GEOLITECOUNTRY_URL
+    gunzip ${GEOLITECOUNTRY_PATH}.gz > /dev/null
+fi
+
+if [ ! -f $GEOLITECITY_PATH ]; then
+    curl -s -L -o ${GEOLITECITY_PATH}.gz $GEOLITECITY_URL
+    gunzip ${GEOLITECITY_PATH}.gz > /dev/null
+fi
+
+puts "GeoIP Country Database is available at: ${GEOLITECOUNTRY_PATH}"
+puts "GeoIP City Database is available at: ${GEOLITECITY_PATH}"
+set-env "GEOIP_PATH" $GEOIP_PATH
+puts "GEOIP_PATH=" $GEOIP_PATH

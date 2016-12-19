@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#bin/detect <build-dir>
+
+# always install
+echo "GeoIp"
+exit 0
