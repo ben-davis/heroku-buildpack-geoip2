@@ -30,5 +30,5 @@ if [ ! -f $GEOLITECITY_PATH ]; then
     gunzip ${GEOLITECITY_PATH}.gz > /dev/null
 fi
 
-puts "GeoIP Country Database is available at: ${GEOLITECOUNTRY_PATH}"
-puts "GeoIP City Database is available at: ${GEOLITECITY_PATH}"
+puts "GeoIP Country Database is available at: /app/geoip/GeoLite2-Country.mmdb"
+puts "GeoIP City Database is available at: /app/geoip/GeoLite2-City.mmdb"
