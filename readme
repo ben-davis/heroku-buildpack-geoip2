@@ -1,3 +1,2 @@
 Downloads the latest GeoIP2 country and city databases into `/app/geoip`.
 
-Path is available in the `GEOIP_PATH` environment variable.
